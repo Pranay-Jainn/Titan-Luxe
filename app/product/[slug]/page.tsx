@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 import { getProductBySlug } from "@/lib/firebase";
-import type { PageProps } from "next"; // ✅ Add this import
+import type { PageProps } from "next"; // ✅ Import Next.js type
 
 export default async function ProductPage({ params }: PageProps<{ slug: string }>) {
-  // ✅ Slug read karo
+  // ✅ Correctly type params using PageProps
   const { slug } = params;
 
   // ✅ Firebase se product fetch karo
