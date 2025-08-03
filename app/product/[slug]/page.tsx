@@ -1,20 +1,21 @@
 import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 import { getProductBySlug } from "@/lib/firebase";
-import type { PageProps } from "next"; // ✅ Import Next.js type
+import { Product } from "@/data/products";
 
-export default async function ProductPage({ params }: PageProps<{ slug: string }>) {
-  // ✅ Correctly type params using PageProps
-  const { slug } = params;
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  // ✅ Await params because Next.js 15 allows it to be async
+  const { slug } = await params;
 
-  // ✅ Firebase se product fetch karo
   const product = await getProductBySlug(slug);
 
-  // ✅ Agar nahi mila to 404 page dikhado
   if (!product) {
     notFound();
   }
 
-  // ✅ UI render karo
-  return <ProductDetail product={product} />;
+  return <ProductDetail product={product as Product} />;
 }

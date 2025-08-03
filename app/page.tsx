@@ -175,7 +175,14 @@ const HomePage = () => {
   );
 };
 
-const CollectionCard = ({ href, image, title, subtitle }) => (
+interface CollectionCardProps {
+  href: string;
+  image: string;
+  title: string;
+  subtitle: string;
+}
+
+const CollectionCard = ({ href, image, title, subtitle }: CollectionCardProps) => (
   <Link href={href} className="group relative overflow-hidden rounded-lg">
     <div className="aspect-[4/5] relative">
       <Image
@@ -197,6 +204,7 @@ const CollectionCard = ({ href, image, title, subtitle }) => (
     </div>
   </Link>
 );
+
 
 const BrandStory = () => (
   <section className="py-20 bg-white">
@@ -252,7 +260,13 @@ const BrandStory = () => (
   </section>
 );
 
-const Feature = ({ icon, title, subtitle }) => (
+interface FeatureProps {
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+}
+
+const Feature = ({ icon, title, subtitle }: FeatureProps) => (
   <div className="flex items-start space-x-3">
     <div className="bg-titan-gold p-2 rounded-full">{icon}</div>
     <div>
@@ -261,5 +275,6 @@ const Feature = ({ icon, title, subtitle }) => (
     </div>
   </div>
 );
+
 
 export default HomePage;

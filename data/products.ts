@@ -3,7 +3,7 @@ export interface Product {
   slug: string;
   name: string;
   price: number; // ✅ Always stored as number now
-  originalPrice?: number; // ✅ Optional, also number only
+  originalPrice?: number | null; // ✅ Optional, also number only
   image: string;
   images: string[];
   description: string;
