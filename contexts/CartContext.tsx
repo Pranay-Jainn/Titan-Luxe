@@ -5,7 +5,7 @@ import { Product } from '@/data/products';
 
 interface CartItem extends Product {
   quantity: number;
-  price: string | number; // ✅ Make sure TypeScript knows price can be string or number
+  price: number; // ✅ Now price is ALWAYS a number
 }
 
 interface CartContextType {
@@ -34,7 +34,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // ✅ Load cart from localStorage on component mount
+  // ✅ Load cart from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem('titan-luxe-cart');
     if (savedCart) {
@@ -42,17 +42,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  // ✅ Save cart to localStorage whenever cartItems change
+  // ✅ Save cart to localStorage whenever cart changes
   useEffect(() => {
     localStorage.setItem('titan-luxe-cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   // ✅ Add product to cart
   const addToCart = (product: Product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === product.id);
       if (existingItem) {
-        return prevItems.map(item =>
+        return prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -66,43 +66,35 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // ✅ Remove product from cart
   const removeFromCart = (productId: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
   };
 
-  // ✅ Update product quantity in cart
+  // ✅ Update quantity
   const updateQuantity = (productId: string, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
     }
-
-    setCartItems(prevItems =>
-      prevItems.map(item =>
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
         item.id === productId ? { ...item, quantity } : item
       )
     );
   };
 
-  // ✅ Clear entire cart
+  // ✅ Clear the entire cart
   const clearCart = () => {
     setCartItems([]);
   };
 
-  // ✅ Get total items count
+  // ✅ Total items count
   const getTotalItems = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // ✅ Get total price (safely handles ₹12,999 string from Firebase)
+  // ✅ Total price (now much simpler since price is always a number)
   const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => {
-      const numericPrice =
-        typeof item.price === 'string'
-          ? parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0
-          : item.price;
-
-      return total + numericPrice * item.quantity;
-    }, 0);
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
   const value = {
@@ -117,9 +109,5 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsCartOpen,
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

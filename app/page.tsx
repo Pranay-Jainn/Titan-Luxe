@@ -12,16 +12,29 @@ const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch products dynamically from Firebase Firestore
+  // ✅ Fetch products dynamically from Firebase Firestore (with price conversion)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const productsRef = collection(db, "products");
         const snapshot = await getDocs(productsRef);
-        const products = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          return {
+            id: doc.id,
+            ...data,
+            // ✅ Convert price & originalPrice to numbers (if they are strings)
+            price: typeof data.price === "string"
+              ? parseFloat(data.price.replace(/[^0-9.]/g, "")) || 0
+              : data.price,
+            originalPrice: data.originalPrice
+              ? (typeof data.originalPrice === "string"
+                  ? parseFloat(data.originalPrice.replace(/[^0-9.]/g, "")) || 0
+                  : data.originalPrice)
+              : null,
+          };
+        });
 
         // ✅ OPTIONAL: Limit featured products to 6 for cleaner homepage
         setFeaturedProducts(products.slice(0, 6));
@@ -207,7 +220,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ✅ Brand Story Section (Kept as-is) */}
+      {/* ✅ Brand Story Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -249,7 +262,7 @@ const HomePage = () => {
 
             <div className="relative">
               <Image
-                src="https://images.pexels.com/photos/3782237/pexels-photo-3782237.jpeg"
+                src="craftsman.jpg"
                 alt="Titan Luxe Craftsmanship"
                 width={600}
                 height={700}

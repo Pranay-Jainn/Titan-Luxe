@@ -19,22 +19,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     addToCart(product);
   };
 
-  // ✅ Convert price safely if it's a string like "₹12,999"
-  const parsedPrice =
-    typeof product.price === 'string'
-      ? parseFloat(product.price.replace(/[^0-9.]/g, ''))
-      : product.price;
-
-  const parsedOriginalPrice = product.originalPrice
-    ? typeof product.originalPrice === 'string'
-      ? parseFloat(product.originalPrice.replace(/[^0-9.]/g, ''))
-      : product.originalPrice
-    : null;
-
-  // ✅ Images handling (fallback for single image)
+  // ✅ Directly use price since it's always a number now
   const productImages = product.images && product.images.length > 0
     ? product.images
-    : [product.image]; // agar images array nahi mila to single image ko array me convert
+    : [product.image]; // fallback to single image
 
   return (
     <div className="pt-20 min-h-screen bg-titan-white">
@@ -113,11 +101,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
               <div className="flex items-center space-x-4 mb-6">
                 <span className="text-3xl font-bold text-titan-black">
-                  ₹{parsedPrice.toLocaleString('en-IN')}
+                  ₹{product.price.toLocaleString('en-IN')}
                 </span>
-                {parsedOriginalPrice && (
+                {product.originalPrice && (
                   <span className="text-xl text-titan-gray line-through">
-                    ₹{parsedOriginalPrice.toLocaleString('en-IN')}
+                    ₹{product.originalPrice.toLocaleString('en-IN')}
                   </span>
                 )}
               </div>
@@ -142,7 +130,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
               </div>
             )}
 
-            {/* ✅ Specifications (safe check) */}
+            {/* ✅ Specifications */}
             {product.specifications && (
               <div>
                 <h3 className="text-lg font-semibold text-titan-black mb-4">Specifications</h3>

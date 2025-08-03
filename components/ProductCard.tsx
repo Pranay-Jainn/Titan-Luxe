@@ -63,15 +63,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* ✅ Pricing Section */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              {/* ✅ Format price in ₹ with commas */}
+              {/* ✅ Format price with ₹ and commas */}
               <span className="text-xl font-bold text-titan-black">
-                {product.price.toLocaleString('en-IN')}
+                ₹{product.price.toLocaleString('en-IN')}
               </span>
 
               {/* ✅ Show original price only if it exists */}
               {product.originalPrice && (
                 <span className="text-sm text-titan-gray line-through">
-                  {product.originalPrice.toLocaleString('en-IN')}
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
             </div>

@@ -2,7 +2,7 @@
   {
     "name": "Titan Luxe Professional",
     "slug": "titan-luxe-professional",
-    "price": "₹8,299",
+    "price": 8299,
     "description": "Minimal formal watch for professionals with refined leather strap.",
     "image": "https://images.pexels.com/photos/277319/pexels-photo-277319.jpeg",
     "collection": "men",
@@ -19,7 +19,7 @@
   {
     "name": "Titan Luxe Edge",
     "slug": "titan-luxe-edge",
-    "price": "₹12,999",
+    "price": 12999,
     "description": "Ultra-thin luxury watch with sapphire glass.",
     "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg",
     "collection": "men",
@@ -36,7 +36,7 @@
   {
     "name": "Titan Luxe Raga",
     "slug": "titan-luxe-raga",
-    "price": "₹9,499",
+    "price": 9499,
     "description": "Elegant ladies’ watch with rose-gold finish and minimalist dial.",
     "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg",
     "collection": "women",
@@ -53,7 +53,7 @@
   {
     "name": "Titan Luxe Smart Pro",
     "slug": "titan-luxe-smart-pro",
-    "price": "₹15,999",
+    "price": 15999,
     "description": "Smart luxury watch with AMOLED display and health tracking.",
     "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg",
     "collection": "smartwatch",
@@ -70,7 +70,7 @@
   {
     "name": "Titan Luxe Nebula",
     "slug": "titan-luxe-nebula",
-    "price": "₹18,499",
+    "price": 18499,
     "description": "24k gold-plated classic automatic watch with sapphire crystal.",
     "image": "https://images.unsplash.com/photo-1613704193420-a53cab02d194?q=80&w=1025&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "collection": "men",
@@ -87,7 +87,7 @@
   {
     "name": "Titan Luxe Chrono",
     "slug": "titan-luxe-chrono",
-    "price": "₹14,499",
+    "price": 14499,
     "description": "Sophisticated chronograph watch with stainless steel body and bold dial.",
     "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "collection": "men",

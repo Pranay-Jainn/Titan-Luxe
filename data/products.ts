@@ -2,8 +2,8 @@ export interface Product {
   id: string;
   slug: string;
   name: string;
-  price: number;
-  originalPrice?: number;
+  price: number; // ✅ Always stored as number now
+  originalPrice?: number; // ✅ Optional, also number only
   image: string;
   images: string[];
   description: string;
@@ -33,7 +33,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/364371/pexels-photo-364371.jpeg',
       'https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg'
     ],
-    description: 'A masterpiece of precision engineering, the Titan Chronograph Black Gold combines sophisticated aesthetics with exceptional functionality. This timepiece features a sleek black dial with gold accents, perfect for the modern gentleman.',
+    description:
+      'A masterpiece of precision engineering, the Titan Chronograph Black Gold combines sophisticated aesthetics with exceptional functionality. This timepiece features a sleek black dial with gold accents, perfect for the modern gentleman.',
     category: 'men',
     collection: 'Heritage Collection',
     features: [
@@ -62,7 +63,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/1024994/pexels-photo-1024994.jpeg',
       'https://images.pexels.com/photos/9490516/pexels-photo-9490516.jpeg'
     ],
-    description: 'Exquisite femininity meets timeless luxury in the Titan Diamond Elegance. Adorned with carefully selected diamonds and crafted with the finest materials.',
+    description:
+      'Exquisite femininity meets timeless luxury in the Titan Diamond Elegance. Adorned with carefully selected diamonds and crafted with the finest materials.',
     category: 'women',
     collection: 'Diamond Collection',
     features: [
@@ -91,7 +93,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/393047/pexels-photo-393047.jpeg',
       'https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg'
     ],
-    description: 'The future of timekeeping. Titan Smart Pro combines traditional watchmaking with cutting-edge technology for the modern lifestyle.',
+    description:
+      'The future of timekeeping. Titan Smart Pro combines traditional watchmaking with cutting-edge technology for the modern lifestyle.',
     category: 'smartwatch',
     collection: 'Smart Collection',
     features: [
@@ -120,7 +123,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg',
       'https://images.pexels.com/photos/364371/pexels-photo-364371.jpeg'
     ],
-    description: 'Timeless elegance in its purest form. The Titan Classic Gold represents the pinnacle of traditional watchmaking with modern reliability.',
+    description:
+      'Timeless elegance in its purest form. The Titan Classic Gold represents the pinnacle of traditional watchmaking with modern reliability.',
     category: 'men',
     collection: 'Classic Collection',
     features: [
@@ -149,7 +153,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg',
       'https://images.pexels.com/photos/1374128/pexels-photo-1374128.jpeg'
     ],
-    description: 'Embrace your feminine grace with the Titan Rose Gold Bloom. This delicate timepiece features intricate floral motifs and rose gold finishing.',
+    description:
+      'Embrace your feminine grace with the Titan Rose Gold Bloom. This delicate timepiece features intricate floral motifs and rose gold finishing.',
     category: 'women',
     collection: 'Bloom Collection',
     features: [
@@ -178,7 +183,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/364371/pexels-photo-364371.jpeg',
       'https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg'
     ],
-    description: 'Built for performance and style. The Titan Sport Chronograph is the perfect companion for active lifestyles without compromising on elegance.',
+    description:
+      'Built for performance and style. The Titan Sport Chronograph is the perfect companion for active lifestyles without compromising on elegance.',
     category: 'men',
     collection: 'Sport Collection',
     features: [
@@ -207,7 +213,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg',
       'https://images.pexels.com/photos/393047/pexels-photo-393047.jpeg'
     ],
-    description: 'Designed for the active woman. Track your fitness goals while maintaining elegance with the Titan Smart Fitness watch.',
+    description:
+      'Designed for the active woman. Track your fitness goals while maintaining elegance with the Titan Smart Fitness watch.',
     category: 'smartwatch',
     collection: 'Fitness Collection',
     features: [
@@ -236,7 +243,8 @@ export const products: Product[] = [
       'https://images.pexels.com/photos/3782237/pexels-photo-3782237.jpeg',
       'https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg'
     ],
-    description: 'A tribute to horological excellence. The Titan Heritage Automatic showcases traditional craftsmanship with contemporary refinement.',
+    description:
+      'A tribute to horological excellence. The Titan Heritage Automatic showcases traditional craftsmanship with contemporary refinement.',
     category: 'men',
     collection: 'Heritage Collection',
     features: [
@@ -257,13 +265,14 @@ export const products: Product[] = [
   }
 ];
 
+// ✅ Utility functions
 export const getProductBySlug = (slug: string): Product | undefined => {
-  return products.find(product => product.slug === slug);
+  return products.find((product) => product.slug === slug);
 };
 
 export const getProductsByCategory = (category: string): Product[] => {
   if (category === 'all') return products;
-  return products.filter(product => product.category === category);
+  return products.filter((product) => product.category === category);
 };
 
 export const getFeaturedProducts = (): Product[] => {
