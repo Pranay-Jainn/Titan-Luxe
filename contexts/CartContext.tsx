@@ -3,11 +3,29 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product } from '@/data/products';
 
-interface CartItem extends Product {
+interface CartItem {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  originalPrice?: number | null;
+  image: string;
+  images: string[];
+  description: string;
+  category: 'men' | 'women' | 'smartwatch';
+  collection: string;
+  features: string[];
+  specifications: {
+    movement: string;
+    caseMaterial: string;
+    strapMaterial: string;
+    waterResistance: string;
+    caseSize: string;
+  };
+  inStock: boolean;
   quantity: number;
-  price: number; // ✅ Always a number
-  originalPrice?: number | null; // ✅ Optional field for discounts
 }
+
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -37,11 +55,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // ✅ Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem('titan-luxe-cart');
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
-    }
-  }, []);
+  const savedCart = localStorage.getItem('titan-luxe-cart');
+  if (savedCart) {
+    const parsedCart = JSON.parse(savedCart);
+
+    // ✅ ensure all prices are numbers after restoring
+    setCartItems(parsedCart.map((item: any) => ({
+      ...item,
+      price: Number(item.price),
+      originalPrice: item.originalPrice ? Number(item.originalPrice) : null
+    })));
+  }
+}, []);
+
 
   // ✅ Save cart to localStorage whenever cart changes
   useEffect(() => {
