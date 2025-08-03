@@ -5,7 +5,8 @@ import { Product } from '@/data/products';
 
 interface CartItem extends Product {
   quantity: number;
-  price: number; // ✅ Now price is ALWAYS a number
+  price: number; // ✅ Always a number
+  originalPrice?: number | null; // ✅ Optional field for discounts
 }
 
 interface CartContextType {
@@ -47,18 +48,31 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('titan-luxe-cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // ✅ Add product to cart
+  // ✅ Add product to cart (FORCING price to be a number)
   const addToCart = (product: Product) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
+
       if (existingItem) {
+        // ✅ Increase quantity if product already exists
         return prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       } else {
-        return [...prevItems, { ...product, quantity: 1 }];
+        // ✅ New product – ensure price & originalPrice are numbers
+        return [
+          ...prevItems,
+          {
+            ...product,
+            price: Number(product.price), // 🔥 ensures number type
+            originalPrice: product.originalPrice
+              ? Number(product.originalPrice)
+              : null,
+            quantity: 1,
+          },
+        ];
       }
     });
     setIsCartOpen(true);
@@ -92,7 +106,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // ✅ Total price (now much simpler since price is always a number)
+  // ✅ Total price calculation (price is guaranteed number now)
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
